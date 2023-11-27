@@ -25,6 +25,7 @@ async def create_video(request: VideoRequest):
     # 1. 질문에 대한 답변 텍스트를 생성한다.
 
     # 2. 생성된 텍스트를 음성으로 변환한다.
+    # => TTS.py 실행
 
     # 3. 변환된 음성을 업로드한다.
     audio_url = upload_audio("test.m4a")
