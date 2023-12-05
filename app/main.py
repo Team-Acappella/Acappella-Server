@@ -5,6 +5,12 @@ import os
 from dotenv import load_dotenv
 import time
 
+import subprocess
+
+import nbformat
+from nbconvert import PythonExporter
+from nbconvert.preprocessors import ExecutePreprocessor
+
 app = FastAPI()
 load_dotenv()  # .env 파일에서 환경변수를 로드
 professor_image_url = {
@@ -44,6 +50,24 @@ async def get_specific_video(request: SpecificRequest):
 
     result_url = get_specific_talk(request.talk_id)
     return { "url": result_url }
+
+@app.get("/diffusion")
+async def run_diffusion():
+    file_path = "./DiffSVC.ipynb"
+    with open(file_path, 'r', encoding='utf-8') as nb_file:
+        notebook = nbformat.read(nb_file, as_version=4)
+    
+    python_exporter = PythonExporter()
+    python_code, _ = python_exporter.from_notebook_node(notebook)
+
+    exec_preprocessor = ExecutePreprocessor(timeout=600)
+    exec_preprocessor.preprocess(notebook, {'metadata': {'path': './'}})
+
+    cell_outputs = notebook.cells[-1].outputs
+
+    print(cell_outputs)
+
+    return { "test": "working" }
 
 # 파일명 형식 제한이 존재하니 고려해야함
 def upload_audio(audio_file_path):
@@ -103,4 +127,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, host="127.0.0.1", port=8080)
-

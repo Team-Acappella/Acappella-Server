@@ -1,0 +1,11 @@
+fastapi
+pydantic
+requests
+python-dotenv
+uvicorn
+google.cloud
+jupyter
+nbformat
+nbconvert
+io
+os

@@ -1,6 +1,7 @@
+venv/
 .env
 test.m4a
 __pycache__/test.cpython-36.pyc
 __pycache__/main.cpython-39.pyc
 professortts-d64ea18f760c.json
-venv/
+app/model/model_ckpt_steps_8000.ckpt
