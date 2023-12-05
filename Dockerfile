@@ -32,5 +32,4 @@ RUN pip install pydub
 RUN pip install -r requirements.txt
 EXPOSE 80
 COPY ./app/DiffSVC.ipynb /app
-COPY ./app/test.ipynb /app
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
