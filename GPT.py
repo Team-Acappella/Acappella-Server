@@ -7,7 +7,7 @@ load_dotenv()
 API_KEY = os.getenv("OPENAI_API_KEY")
 
 GPT_MODEL = "gpt-4-1106-preview"
-LECTURE_DIR = "app/"
+LECTURE_DIR = "./"
 INPUT_FILE = os.path.join(LECTURE_DIR, "ryu_custom.txt")
 OUTPUT_FILE = os.path.join("./", "result.txt")
 PROMPT = BASE_PROMPT
