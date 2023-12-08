@@ -7,5 +7,3 @@ google.cloud
 jupyter
 nbformat
 nbconvert
-io
-os

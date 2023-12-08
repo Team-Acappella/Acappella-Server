@@ -3,17 +3,14 @@ import openai
 from dotenv import load_dotenv
 from prompt import PROMPT as BASE_PROMPT
 
-
 load_dotenv()
 API_KEY = os.getenv("OPENAI_API_KEY")
 
-
 GPT_MODEL = "gpt-4-1106-preview"
-LECTURE_DIR = "./"
+LECTURE_DIR = "app/"
 INPUT_FILE = os.path.join(LECTURE_DIR, "ryu_custom.txt")
 OUTPUT_FILE = os.path.join("./", "result.txt")
 PROMPT = BASE_PROMPT
-
 
 class AnswerGenerator:
     def __init__(self, api_key, model=GPT_MODEL, prompt=PROMPT):
@@ -54,9 +51,9 @@ def write_file(file_path, content):
         print(f"Error occurred while writing to {file_path}: {e}")
 
 
-def task():
+def task(question):
+    print(INPUT_FILE)
     subtitle = read_file(INPUT_FILE)
-    question = "쓰레드란 무엇인가요?"
     if subtitle:
         answer_generator = AnswerGenerator(api_key=API_KEY)
         response = answer_generator.get_answer(subtitle, question)
@@ -64,7 +61,3 @@ def task():
             write_file(OUTPUT_FILE, response)
             # print(response)
             return response
-
-
-if __name__ == "__main__":
-    task()

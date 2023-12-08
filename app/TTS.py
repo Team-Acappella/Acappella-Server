@@ -7,7 +7,7 @@ load_dotenv()
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.environ.get("GOOGLE_API_JSON")
 print(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
 
-def synthesize_text(text):     
+def synthesize_text(text, professor_tts_string):     
     client = texttospeech.TextToSpeechClient()
 
     # 최대 길이 200 지정
@@ -36,7 +36,7 @@ def synthesize_text(text):
         # 오디오 설정 (예: 한국어, 남성C)
         voice = texttospeech.VoiceSelectionParams(
             language_code="ko-KR",
-            name="ko-KR-Neural2-C",
+            name=professor_tts_string,
             ssml_gender=texttospeech.SsmlVoiceGender.MALE,
         )
 
@@ -52,8 +52,6 @@ def synthesize_text(text):
     audio_data = b"".join(audio_data)
     
     # output.wav 파일 생성
-    with open("audio/output.wav", "wb") as out:        
+    with open("/Users/idongseob/dev/Acappella-temp/Acappella-Server/app/audio/output.wav", "wb") as out:        
         out.write(audio_data)
         print("TTS has been successfully created.")
-
-synthesize_text("선생님이 내일 출장을 갈 예정이에요.")
