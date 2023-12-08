@@ -52,6 +52,6 @@ def synthesize_text(text, professor_tts_string):
     audio_data = b"".join(audio_data)
     
     # output.wav 파일 생성
-    with open("/Users/idongseob/dev/Acappella-temp/Acappella-Server/app/audio/output.wav", "wb") as out:        
+    with open("app/audio/output.wav", "wb") as out:        
         out.write(audio_data)
         print("TTS has been successfully created.")
