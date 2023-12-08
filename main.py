@@ -5,12 +5,25 @@ import os
 from dotenv import load_dotenv
 from TTS import synthesize_text
 from GPT import task
+from starlette.middleware.cors import CORSMiddleware
 
 from nbconvert import PythonExporter
 from nbconvert.preprocessors import ExecutePreprocessor
 
 app = FastAPI()
 load_dotenv()  # .env 파일에서 환경변수를 로드
+
+origins = [
+    "*"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 professor_image_url = {
     1: os.getenv("RYU_IMAGE_URL"), #ko-KR-Standard-D
     2: os.getenv("JANG_IMAGE_URL"), #ko-KR-Neural2-C
