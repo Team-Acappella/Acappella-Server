@@ -8,9 +8,9 @@ API_KEY = os.getenv("OPENAI_API_KEY")
 
 GPT_MODEL = "gpt-4-1106-preview"
 LECTURE_DIR = "app/"
-INPUT_FILE = os.path.join(LECTURE_DIR, "ryu_custom.txt")
 OUTPUT_FILE = os.path.join("./", "result.txt")
 PROMPT = BASE_PROMPT
+
 
 class AnswerGenerator:
     def __init__(self, api_key, model=GPT_MODEL, prompt=PROMPT):
@@ -24,7 +24,6 @@ class AnswerGenerator:
                 model=self.model,
                 messages=[
                     {"role": "system", "content": self.prompt},
-                    {"role": "user", "content": subtitle},
                     {"role": "user", "content": question},
                 ],
             )
@@ -52,12 +51,9 @@ def write_file(file_path, content):
 
 
 def task(question):
-    print(INPUT_FILE)
-    subtitle = read_file(INPUT_FILE)
-    if subtitle:
-        answer_generator = AnswerGenerator(api_key=API_KEY)
-        response = answer_generator.get_answer(subtitle, question)
-        if response:
-            write_file(OUTPUT_FILE, response)
-            # print(response)
-            return response
+    answer_generator = AnswerGenerator(api_key=API_KEY)
+    response = answer_generator.get_answer("", question)
+    if response:
+        write_file(OUTPUT_FILE, response)
+        # print(response)
+        return response
