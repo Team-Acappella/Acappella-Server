@@ -73,7 +73,7 @@ async def create_video(request: VideoRequest):
     result_url = get_specific_talk(talk_id)
     return { "text": answer_text, "url": result_url, "talk_id": talk_id }
 
-@app.get("/specific")
+@app.post("/specific")
 async def get_specific_video(request: SpecificRequest):
     # Fetch the MP4 file from the URL
     result_url = get_specific_talk(request.talk_id)
