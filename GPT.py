@@ -6,9 +6,8 @@ from prompt import PROMPT as BASE_PROMPT
 load_dotenv()
 API_KEY = os.getenv("OPENAI_API_KEY")
 
-GPT_MODEL = "gpt-4-1106-preview"
+GPT_MODEL = "gpt-3.5-turbo-1106"
 LECTURE_DIR = "./"
-INPUT_FILE = os.path.join(LECTURE_DIR, "ryu_custom.txt")
 OUTPUT_FILE = os.path.join("./", "result.txt")
 PROMPT = BASE_PROMPT
 
@@ -24,7 +23,6 @@ class AnswerGenerator:
                 model=self.model,
                 messages=[
                     {"role": "system", "content": self.prompt},
-                    {"role": "user", "content": subtitle},
                     {"role": "user", "content": question},
                 ],
             )
@@ -52,12 +50,9 @@ def write_file(file_path, content):
 
 
 def task(question):
-    print(INPUT_FILE)
-    subtitle = read_file(INPUT_FILE)
-    if subtitle:
-        answer_generator = AnswerGenerator(api_key=API_KEY)
-        response = answer_generator.get_answer(subtitle, question)
-        if response:
-            write_file(OUTPUT_FILE, response)
-            # print(response)
-            return response
+    answer_generator = AnswerGenerator(api_key=API_KEY)
+    response = answer_generator.get_answer("", question)
+    if response:
+        write_file(OUTPUT_FILE, response)
+        # print(response)
+        return response

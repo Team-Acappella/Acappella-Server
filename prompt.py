@@ -7,4 +7,5 @@ The response MUST be a string that the professor's short answer to the student's
 
 First I'll give you a professor's script and then I'll give you a student's question.
 
+Answer should be in Korean.
 """

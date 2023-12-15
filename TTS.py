@@ -33,12 +33,18 @@ def synthesize_text(text, professor_tts_string):
     for sentence in sentences:
         input_text = texttospeech.SynthesisInput(text=sentence)
 
-        # 오디오 설정 (예: 한국어, 남성C)
-        voice = texttospeech.VoiceSelectionParams(
-            language_code="ko-KR",
-            name=professor_tts_string,
-            ssml_gender=texttospeech.SsmlVoiceGender.MALE,
-        )
+        if professor_tts_string == "ko-KR-Neural2-B" or professor_tts_string == "ko-KR-Standard-B":
+            voice = texttospeech.VoiceSelectionParams(
+                language_code="ko-KR",
+                name=professor_tts_string,
+                ssml_gender=texttospeech.SsmlVoiceGender.FEMALE,
+            )
+        else:
+            voice = texttospeech.VoiceSelectionParams(
+                language_code="ko-KR",
+                name=professor_tts_string,
+                ssml_gender=texttospeech.SsmlVoiceGender.MALE,
+            )
 
         audio_config = texttospeech.AudioConfig(
             audio_encoding=texttospeech.AudioEncoding.MP3
