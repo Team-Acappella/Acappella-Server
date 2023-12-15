@@ -13,7 +13,6 @@ from nbconvert.preprocessors import ExecutePreprocessor
 
 from pydantic import BaseModel
 import requests
-import subprocess
 
 app = FastAPI()
 load_dotenv()  # .env 파일에서 환경변수를 로드
@@ -87,20 +86,8 @@ async def get_specific_video(request: SpecificRequest):
     with open(mp4_file_path, "wb") as f:
         f.write(mp4_response.content)
 
-    # Convert MP4 to WebM using FFMPEG
-    webm_file_path = "temp.webm"
-    command = [
-        'ffmpeg', 
-        '-y',  # Overwrite existing files without asking
-        '-i', mp4_file_path, 
-        '-c:v', 'libvpx-vp9', 
-        '-b:v', '1M', 
-        webm_file_path
-    ]
-    subprocess.run(command, check=True)
-
-    # Return the WebM file as a response
-    return FileResponse(webm_file_path, media_type="video/webm")
+    # Return the MP4 file as a response
+    return FileResponse(mp4_file_path, media_type="video/mp4")
 
 # @app.get("/diffusion")
 # async def run_diffusion():
