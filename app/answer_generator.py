@@ -6,7 +6,7 @@ from prompt import PROMPT as BASE_PROMPT
 load_dotenv()
 API_KEY = os.getenv("OPENAI_API_KEY")
 
-GPT_MODEL = "gpt-4-1106-preview"
+GPT_MODEL = "gpt-3.5-turbo-1106"
 LECTURE_DIR = "app/"
 OUTPUT_FILE = os.path.join("./", "result.txt")
 PROMPT = BASE_PROMPT
