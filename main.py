@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import requests
 import os
@@ -9,6 +10,10 @@ from starlette.middleware.cors import CORSMiddleware
 
 from nbconvert import PythonExporter
 from nbconvert.preprocessors import ExecutePreprocessor
+
+from pydantic import BaseModel
+import requests
+import subprocess
 
 app = FastAPI()
 load_dotenv()  # .env 파일에서 환경변수를 로드
@@ -71,9 +76,31 @@ async def create_video(request: VideoRequest):
 
 @app.get("/specific")
 async def get_specific_video(request: SpecificRequest):
-
+    # Fetch the MP4 file from the URL
     result_url = get_specific_talk(request.talk_id)
-    return { "url": result_url }
+    mp4_response = requests.get(result_url)
+    if mp4_response.status_code != 200:
+        raise HTTPException(status_code=400, detail="Failed to download MP4 file")
+
+    # Save the MP4 file locally
+    mp4_file_path = "temp.mp4"
+    with open(mp4_file_path, "wb") as f:
+        f.write(mp4_response.content)
+
+    # Convert MP4 to WebM using FFMPEG
+    webm_file_path = "temp.webm"
+    command = [
+        'ffmpeg', 
+        '-y',  # Overwrite existing files without asking
+        '-i', mp4_file_path, 
+        '-c:v', 'libvpx-vp9', 
+        '-b:v', '1M', 
+        webm_file_path
+    ]
+    subprocess.run(command, check=True)
+
+    # Return the WebM file as a response
+    return FileResponse(webm_file_path, media_type="video/webm")
 
 # @app.get("/diffusion")
 # async def run_diffusion():
