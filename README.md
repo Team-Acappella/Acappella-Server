@@ -22,5 +22,9 @@ Second Prize at 2023 SKKU AI-Education Capstone Design Competition
 - [Serin Yoon](https://github.com/serin-yoon)
 <br/><br/>
 
+## Preview
+  
+[![](http://img.youtube.com/vi/9yDRMeOF41M/0.jpg)](https://youtu.be/9yDRMeOF41M)
+
 ## For more information...
 Please refer to [this page](./assets/poster.pdf).
