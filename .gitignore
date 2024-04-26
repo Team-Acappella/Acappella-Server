@@ -3,3 +3,4 @@ venv/
 test.m4a
 __pycache__/**
 professortts-d64ea18f760c.json
+.DS_Store
