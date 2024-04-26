@@ -5,3 +5,4 @@ __pycache__/test.cpython-36.pyc
 __pycache__/main.cpython-39.pyc
 professortts-d64ea18f760c.json
 app/model/model_ckpt_steps_8000.ckpt
+.DS_Store
